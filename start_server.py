@@ -24,32 +24,33 @@ def log(msg):
 # Language via ENV (NO INPUT)
 # -----------------------------
 
-LANGUAGE = os.getenv("KEYNOTE_LANG", "en").lower()
+LANGUAGE = os.getenv("KEYNOTE_LANG")
 
 
 def get_messages(lang):
     if lang == "zh":
         return {
-            "starting": "Starting Keynote-MCP Server...",
-            "env_loaded": "Loaded environment file",
-            "env_not_found": ".env not found — using system env",
-            "dotenv_missing": "python-dotenv not installed",
-            "unsplash_enabled": "Unsplash enabled",
-            "unsplash_disabled": "Unsplash disabled",
-            "server_failed": "Server startup failed",
-            "server_stopped": "Server stopped"
+            "starting": "🚀 启动 Keynote-MCP 服务器...",
+            "env_loaded": "📄 已加载环境变量文件",
+            "env_not_found": "📄 未找到 .env 文件，使用系统环境变量",
+            "dotenv_missing": "⚠️  python-dotenv 未安装，仅使用系统环境变量",
+            "unsplash_enabled": "🖼️  Unsplash 配图功能已启用",
+            "unsplash_disabled": "⚠️  未检测到 UNSPLASH_KEY 环境变量",
+            "server_failed": "❌ 服务器启动失败",
+            "server_stopped": "👋 服务器已停止"
         }
-    else:
+    else:  # English
         return {
-            "starting": "Starting Keynote-MCP Server...",
-            "env_loaded": "Loaded environment file",
-            "env_not_found": ".env not found — using system env",
-            "dotenv_missing": "python-dotenv not installed",
-            "unsplash_enabled": "Unsplash enabled",
-            "unsplash_disabled": "Unsplash disabled",
-            "server_failed": "Server startup failed",
-            "server_stopped": "Server stopped"
+            "starting": "🚀 Starting Keynote-MCP Server...",
+            "env_loaded": "📄 Environment variables loaded from file",
+            "env_not_found": "📄 .env file not found, using system environment variables",
+            "dotenv_missing": "⚠️  python-dotenv not installed, using system environment variables only",
+            "unsplash_enabled": "🖼️  Unsplash image feature is enabled",
+            "unsplash_disabled": "⚠️  UNSPLASH_KEY environment variable not detected",
+            "server_failed": "❌ Server startup failed",
+            "server_stopped": "👋 Server stopped"
         }
+
 
 
 messages = get_messages(LANGUAGE)
