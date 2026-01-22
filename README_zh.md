@@ -43,7 +43,7 @@
 
 3. **配置环境（可选，用于 Unsplash 功能）**
    ```bash
-   cp env.example .env
+   cp .env.example .env
    # 编辑 .env 文件，添加您的 Unsplash API 密钥
    ```
 
@@ -61,10 +61,12 @@
 ```json
 {
   "KeynoteServer": {
-    "command": "python",
-    "args": ["start_server.py"],
+    "command": "/Users/yourname/.pyenv/shims/python3",
+    "args": ["/path/to/keynote-mcp/start_server.py"],
     "env": {
-      "UNSPLASH_KEY": "your_unsplash_api_key_here"
+      "UNSPLASH_KEY": "your_unsplash_api_key_here",
+      "KEYNOTE_LANG": "zh or en",
+      "PYTHONUNBUFFERED": "1"
     },
     "cwd": "/path/to/keynote-mcp",
     "timeout": 5000
@@ -80,10 +82,12 @@
 {
   "mcpServers": {
     "keynote": {
-      "command": "python",
+      "command": "/Users/yourname/.pyenv/shims/python3",
       "args": ["/path/to/keynote-mcp/start_server.py"],
       "env": {
-        "UNSPLASH_KEY": "your_unsplash_api_key_here"
+        "UNSPLASH_KEY": "your_unsplash_api_key_here",
+        "KEYNOTE_LANG": "en or zh",
+        "PYTHONUNBUFFERED": "1"
       }
     }
   }
@@ -96,7 +100,7 @@
 - **命令**: `python`
 - **参数**: `["start_server.py"]`
 - **工作目录**: `/path/to/keynote-mcp`
-- **环境变量**: `{"UNSPLASH_KEY": "your_api_key"}` (可选)
+- **环境变量**:  `{"UNSPLASH_KEY": "your_api_key"} and {"KEYNOTE_LANG": "zh or ch"}` (可选)
 
 ---
 

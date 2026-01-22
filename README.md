@@ -49,8 +49,8 @@ A Model Context Protocol (MCP) server that enables AI assistants to control Keyn
 
 3. **Configure environment (optional for Unsplash features)**
    ```bash
-   cp env.example .env
-   # Edit .env file and add your Unsplash API key
+   cp .env.example .env
+   # Edit .env file and add your Unsplash API key and Language (either 'zh' for chinese or 'en' for english) 
    ```
 
 4. **Set up macOS permissions**
@@ -67,15 +67,18 @@ Add this configuration to your MCP client:
 ```json
 {
   "KeynoteServer": {
-    "command": "python",
-    "args": ["start_server.py"],
+    "command": "/Users/yourname/.pyenv/shims/python3",
+    "args": ["/path/to/keynote-mcp/start_server.py"],
     "env": {
-      "UNSPLASH_KEY": "your_unsplash_api_key_here"
+      "UNSPLASH_KEY": "your_unsplash_api_key_here",
+      "KEYNOTE_LANG": "zh or en",
+      "PYTHONUNBUFFERED": "1"
     },
     "cwd": "/path/to/keynote-mcp",
     "timeout": 5000
   }
 }
+
 ```
 
 #### Claude Desktop Configuration
@@ -86,14 +89,17 @@ Add to your `claude_desktop_config.json`:
 {
   "mcpServers": {
     "keynote": {
-      "command": "python",
+      "command": "/Users/yourname/.pyenv/shims/python3",
       "args": ["/path/to/keynote-mcp/start_server.py"],
       "env": {
-        "UNSPLASH_KEY": "your_unsplash_api_key_here"
+        "UNSPLASH_KEY": "your_unsplash_api_key_here",
+        "KEYNOTE_LANG": "en or zh",
+        "PYTHONUNBUFFERED": "1"
       }
     }
   }
 }
+
 ```
 
 #### Other MCP Clients
@@ -102,7 +108,7 @@ For other MCP-compatible clients, use these connection details:
 - **Command**: `python`
 - **Args**: `["start_server.py"]`
 - **Working Directory**: `/path/to/keynote-mcp`
-- **Environment**: `{"UNSPLASH_KEY": "your_api_key"}` (optional)
+- **Environment**: `{"UNSPLASH_KEY": "your_api_key"} and {"KEYNOTE_LANG": "zh or ch"}` (optional)
 
 ## 📖 Available Tools
 
