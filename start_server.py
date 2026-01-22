@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Keynote-MCP server launcher (MCP compliant)
 """
@@ -21,10 +20,28 @@ def log(msg):
 
 
 # -----------------------------
+# Load ENV FIRST
+# -----------------------------
+
+try:
+    from dotenv import load_dotenv
+
+    env_path = project_root / ".env"
+    if env_path.exists():
+        load_dotenv(env_path)
+        ENV_STATUS = ("loaded", env_path)
+    else:
+        ENV_STATUS = ("missing", None)
+
+except ImportError:
+    ENV_STATUS = ("no_dotenv", None)
+
+
+# -----------------------------
 # Language via ENV (NO INPUT)
 # -----------------------------
 
-LANGUAGE = os.getenv("KEYNOTE_LANG")
+LANGUAGE = os.getenv("KEYNOTE_LANG", "en").lower()
 
 
 def get_messages(lang):
@@ -39,7 +56,7 @@ def get_messages(lang):
             "server_failed": "❌ 服务器启动失败",
             "server_stopped": "👋 服务器已停止"
         }
-    else:  # English
+    else:
         return {
             "starting": "🚀 Starting Keynote-MCP Server...",
             "env_loaded": "📄 Environment variables loaded from file",
@@ -52,24 +69,17 @@ def get_messages(lang):
         }
 
 
-
 messages = get_messages(LANGUAGE)
 
 # -----------------------------
-# Load ENV (silent)
+# ENV LOAD LOGGING (STDERR)
 # -----------------------------
 
-try:
-    from dotenv import load_dotenv
-
-    env_path = project_root / ".env"
-    if env_path.exists():
-        load_dotenv(env_path)
-        log(f"{messages['env_loaded']}: {env_path}")
-    else:
-        log(messages["env_not_found"])
-
-except ImportError:
+if ENV_STATUS[0] == "loaded":
+    log(f"{messages['env_loaded']}: {ENV_STATUS[1]}")
+elif ENV_STATUS[0] == "missing":
+    log(messages["env_not_found"])
+else:
     log(messages["dotenv_missing"])
 
 
